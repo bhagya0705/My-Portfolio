@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { AmbientBackground } from "./AmbientBackground";
 import { useTheme } from "../context/ThemeContext";
+import { NavbarModeToggle } from "./NavbarModeToggle";
 
 export function Layout() {
   const { theme, toggleTheme } = useTheme();
@@ -120,8 +121,13 @@ export function Layout() {
               </div>
             </Link>
 
+            {/* View Mode Toggle: [ Portfolio ] [ Terminal ] */}
+            <div className="hidden sm:flex items-center">
+              <NavbarModeToggle />
+            </div>
+
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center gap-1.5 bg-slate-200/50 dark:bg-white/[0.03] p-1.5 rounded-xl border border-slate-200 dark:border-white/[0.05]">
+            <div className="hidden lg:flex items-center gap-1.5 bg-slate-200/50 dark:bg-white/[0.03] p-1.5 rounded-xl border border-slate-200 dark:border-white/[0.05]">
               {navigation.map((item) => (
                 <Link
                   key={item.path}
@@ -208,8 +214,10 @@ export function Layout() {
               </Link>
             </div>
 
-            {/* Mobile Actions: Theme Toggle + Menu Button */}
-            <div className="flex md:hidden items-center gap-2">
+            {/* Mobile Actions: Mode Toggle + Theme Toggle + Menu Button */}
+            <div className="flex md:hidden items-center gap-1.5">
+              <NavbarModeToggle className="scale-90 origin-right" />
+
               <motion.button
                 onClick={toggleTheme}
                 whileTap={{ scale: 0.9 }}
@@ -239,7 +247,10 @@ export function Layout() {
                 transition={{ duration: 0.25, ease: "easeInOut" }}
                 className="md:hidden overflow-hidden"
               >
-                <div className="pt-4 pb-2 border-t border-slate-200 dark:border-white/10 mt-3 space-y-1.5">
+                <div className="pt-4 pb-2 border-t border-slate-200 dark:border-white/10 mt-3 space-y-2">
+                  <div className="flex justify-center pb-1">
+                    <NavbarModeToggle />
+                  </div>
                   {navigation.map((item) => (
                     <Link
                       key={item.path}
